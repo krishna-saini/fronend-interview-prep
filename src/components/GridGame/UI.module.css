@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+}
+
+.targetCell {
+  position: absolute;
+  display: block;
+  background-color: green;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: #ddd;
+  border: 1px solid #aaa;
+}
