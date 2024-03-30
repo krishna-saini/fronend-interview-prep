@@ -5,7 +5,7 @@ export default class GridGameEngine {
   private rows: number;
   private columns: number;
   private numPlayers: number;
-  // gameGrid: string[][];
+  gameGrid: number[][];
   targetCell: [number, number];
   playerCells: [number, number][];
   obstacleCells: Set<string>;
@@ -15,24 +15,78 @@ export default class GridGameEngine {
     this.columns = userInput.column;
     this.numPlayers = userInput.numPlayers;
     this.obstacleCells = new Set();
-    // this.gameGrid = this.getGameGrid();
+    this.gameGrid = this.getGameGrid();
     this.targetCell = this.generateTargetCell(); // TODO: fix this, do not expose these variable, instead provide them default value and the use getPlayerCells
     this.playerCells = this.generatePlayerCells();
   }
 
-  // private getGameGrid() {
-  //   const gameGrid: string[][] = [];
+  private getGameGrid() {
+    const gameGrid: number[][] = [];
 
-  //   // Initialize the game grid with empty cells
-  //   for (let i = 0; i < this.rows; i++) {
-  //     const row: string[] = [];
-  //     for (let j = 0; j < this.columns; j++) {
-  //       row.push('.');
-  //     }
-  //     gameGrid.push(row);
-  //   }
-  //   return gameGrid;
-  // }
+    // Initialize the game grid with empty cells
+    for (let i = 0; i < this.rows; i++) {
+      const row: number[] = [];
+      for (let j = 0; j < this.columns; j++) {
+        row.push(-1);
+      }
+      gameGrid.push(row);
+    }
+    return gameGrid;
+  }
+
+  private createHeuristicGameGrid() {
+    const gameGrid = this.gameGrid;
+    const gridRows = gameGrid[0].length;
+    const gridCols = gameGrid.length;
+    const [targetRow, targetCol] = this.targetCell;
+    // Mark the target cell as visited with a value of 0
+    gameGrid[targetRow][targetCol] = 0;
+
+    // Create a queue for BFS
+    const queue: number[][] = [[targetRow, targetCol]];
+
+    // BFS loop
+    while (queue.length > 0) {
+      // extract row,col of first cell of queue
+      const cell = queue.shift();
+      if (cell) {
+        const [row, col] = cell;
+        const currentValue = gameGrid[row][col];
+
+        const neighbors = [
+          [row - 1, col - 1], // Top-left
+          [row - 1, col], // Top
+          [row - 1, col + 1], // Top-right
+          [row, col - 1], // Left
+          [row, col + 1], // Right
+          [row + 1, col - 1], // Bottom-left
+          [row + 1, col], // Bottom
+          [row + 1, col + 1], // Bottom-right
+        ];
+
+        for (const [neighborRow, neighborCol] of neighbors) {
+          // Check if the neighbor cell is within the grid bounds
+          if (
+            neighborRow >= 0 &&
+            neighborRow < gridRows &&
+            neighborCol >= 0 &&
+            neighborCol < gridCols &&
+            gameGrid[neighborRow][neighborCol] === -1 // Unvisited
+          ) {
+            // Assign the heuristic value (one more than the current cell)
+            gameGrid[neighborRow][neighborCol] = currentValue + 1;
+            queue.push([neighborRow, neighborCol]);
+          }
+        }
+      }
+    }
+    console.log('krishna heuriits', gameGrid);
+    return gameGrid;
+  }
+
+  getHeuristicGameGrid() {
+    return this.createHeuristicGameGrid();
+  }
 
   /**
    * generate key for a cell
