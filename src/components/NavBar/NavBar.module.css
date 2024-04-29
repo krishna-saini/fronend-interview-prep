@@ -1,0 +1,25 @@
+.container {
+}
+
+.list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  border: 1px solid black;
+}
+
+.list > li {
+  padding: 4px 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.dropDownList {
+  display: none;
+  list-style: none;
+}
+
+.list li:hover .dropDownList {
+  display: block;
+}
