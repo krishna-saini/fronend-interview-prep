@@ -22,7 +22,7 @@ function NavBar() {
             </li>
             <li>
               <a href='#'>JavaScript &#x25B8;</a>
-              <ul className={styles.dropdown}>
+              <ul className={styles.dropdown2}>
                 <li>
                   <a href='#'>Theory</a>
                 </li>

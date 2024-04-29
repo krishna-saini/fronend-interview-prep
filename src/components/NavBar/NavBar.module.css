@@ -35,3 +35,17 @@
 .ul li:hover ul.dropdown {
   display: block;
 }
+
+.dropdown2 {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(
+    100%
+  ); /* Aligns the right edge of the dropdown with the right edge of the parent */
+}
+
+.ul li ul.dropdown li:hover ul.dropdown2 {
+  display: block;
+}
