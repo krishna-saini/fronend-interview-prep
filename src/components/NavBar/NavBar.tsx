@@ -1,34 +1,52 @@
 import React from 'react';
 
 import styles from './NavBar.module.css';
-
 function NavBar() {
   return (
-    <nav className={styles.container}>
-      <ul className={styles.list}>
+    <nav>
+      <ul className={styles.ul}>
         <li>
-          <a href='#'>Product</a>
-          <ul className={styles.dropDownList}>
+          <a href='#'>Home</a>
+        </li>
+        <li>
+          <a href='#'>About Us</a>
+        </li>
+        <li>
+          <a href='#'>Skills &#x25BE;</a>
+          <ul className={styles.dropdown}>
             <li>
-              <a href='#'>Product1</a>
+              <a href='#'>HTML</a>
             </li>
             <li>
-              <a href='#'>Product2</a>
+              <a href='#'>CSS</a>
             </li>
             <li>
-              <a href='#'>Product3</a>
-            </li>
-            <li>
-              <a href='#'>Product4</a>
+              <a href='#'>JavaScript &#x25B8;</a>
+              <ul className={styles.dropdown}>
+                <li>
+                  <a href='#'>Theory</a>
+                </li>
+                <li>
+                  <a href='#'>Machine Coding</a>
+                </li>
+                <li>
+                  <a href='#'>DSA</a>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
-
-        <li>Item2</li>
-        <li>Item3</li>
-        <li>Item4</li>
-        <li>Item5</li>
-        <li>Item6</li>
+        <li>
+          <a href='#'>React &#x25BE;</a>
+          <ul className={styles.dropdown}>
+            <li>
+              <a href='#'>Theory</a>
+            </li>
+            <li>
+              <a href='#'>Machine coding</a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
   );

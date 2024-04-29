@@ -1,25 +1,37 @@
-.container {
-}
-
-.list {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.ul {
   list-style: none;
-  border: 1px solid black;
+  background: #333;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
-
-.list > li {
-  padding: 4px 8px;
-  cursor: pointer;
-  list-style: none;
+.ul li {
+  display: inline-block;
+  position: relative;
 }
-
-.dropDownList {
+.ul li a {
+  display: block;
+  padding: 20px 25px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+}
+.ul li ul.dropdown li {
+  display: block;
+  background: #333;
+}
+.ul li ul.dropdown {
+  width: auto;
+  position: absolute;
+  padding: 0;
+  /* to overrirde default padding and margin */
+  z-index: 999;
+  /* z-index is required if there is any other element which is z>0 */
   display: none;
-  list-style: none;
 }
-
-.list li:hover .dropDownList {
+.ul li a:hover {
+  background: #222;
+}
+.ul li:hover ul.dropdown {
   display: block;
 }
