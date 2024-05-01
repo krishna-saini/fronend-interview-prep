@@ -1,6 +1,7 @@
 // routing.ts
 import GridGame from '../../components/GridGame';
 import NavBar from '../../components/NavBar';
+import Rating from '../../components/Rating';
 
 interface RouteMap {
   [key: string]: React.ComponentType;
@@ -8,7 +9,8 @@ interface RouteMap {
 
 const routeMap: RouteMap = {
   'grid-game': GridGame,
-  'nav-bar': NavBar,
+  navbar: NavBar,
+  rating: Rating,
   // ... add more routes
 };
 
