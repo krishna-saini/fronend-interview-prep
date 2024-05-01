@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './NavBar.module.css';
 function NavBar() {
   return (
-    <nav>
+    <nav >
       <ul className={styles.ul}>
         <li>
           <a href='#'>Home</a>
@@ -48,6 +48,7 @@ function NavBar() {
           </ul>
         </li>
       </ul>
+      <button>Click me</button>
     </nav>
   );
 }

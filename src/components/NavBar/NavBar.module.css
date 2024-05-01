@@ -32,8 +32,16 @@
 .ul li a:hover {
   background: #222;
 }
+.ul li a:focus-within {
+  border: 1px solid red;
+}
 .ul li:hover ul.dropdown {
   display: block;
+}
+
+.ul li:focus-within ul.dropdown {
+  display: block;
+  border: 1px solid red;
 }
 
 .dropdown2 {
@@ -48,4 +56,21 @@
 
 .ul li ul.dropdown li:hover ul.dropdown2 {
   display: block;
+}
+
+.ul li ul.dropdown li:focus-within ul.dropdown2 {
+  display: block;
+}
+
+.ul + button {
+  background-color: yellow;
+  border: none;
+}
+
+.ul + button:focus {
+  border: 2px solid red;
+}
+
+.ul + button:focus-visible {
+  background-color: red;
 }
