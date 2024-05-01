@@ -11,13 +11,14 @@ export default class GridGameEngine {
   obstacleCells: Set<string>;
 
   constructor(userInput: userInputType) {
-    this.rows = userInput.row;
-    this.columns = userInput.column;
+    this.rows = userInput.rows;
+    this.columns = userInput.columns;
     this.numPlayers = userInput.numPlayers;
     this.obstacleCells = new Set();
     this.gameGrid = this.getGameGrid();
     this.targetCell = this.generateTargetCell(); // TODO: fix this, do not expose these variable, instead provide them default value and the use getPlayerCells
     this.playerCells = this.generatePlayerCells();
+    this.calculateHeuristicGameGrid();
   }
 
   private getGameGrid() {
@@ -34,7 +35,7 @@ export default class GridGameEngine {
     return gameGrid;
   }
 
-  private createHeuristicGameGrid() {
+  private calculateHeuristicGameGrid() {
     const gameGrid = this.gameGrid;
     const gridRows = gameGrid[0].length;
     const gridCols = gameGrid.length;
@@ -44,7 +45,7 @@ export default class GridGameEngine {
 
     // Create a queue for BFS
     const queue: number[][] = [[targetRow, targetCol]];
-
+    console.log('krishna in heriehr', this.gameGrid);
     // BFS loop
     while (queue.length > 0) {
       // extract row,col of first cell of queue
@@ -53,16 +54,7 @@ export default class GridGameEngine {
         const [row, col] = cell;
         const currentValue = gameGrid[row][col];
 
-        const neighbors = [
-          [row - 1, col - 1], // Top-left
-          [row - 1, col], // Top
-          [row - 1, col + 1], // Top-right
-          [row, col - 1], // Left
-          [row, col + 1], // Right
-          [row + 1, col - 1], // Bottom-left
-          [row + 1, col], // Bottom
-          [row + 1, col + 1], // Bottom-right
-        ];
+        const neighbors = this.getNeighbours(row, col);
 
         for (const [neighborRow, neighborCol] of neighbors) {
           // Check if the neighbor cell is within the grid bounds
@@ -83,11 +75,6 @@ export default class GridGameEngine {
     console.log('krishna heuriits', gameGrid);
     return gameGrid;
   }
-
-  getHeuristicGameGrid() {
-    return this.createHeuristicGameGrid();
-  }
-
   /**
    * generate key for a cell
    * input - [1,2]
@@ -140,6 +127,35 @@ export default class GridGameEngine {
   }
 
   getPlayerCells() {
+    return this.playerCells;
+  }
+
+  private getNeighbours(row: number, col: number) {
+    const neighbors = [
+      [row - 1, col - 1], // Top-left
+      [row - 1, col], // Top
+      [row - 1, col + 1], // Top-right
+      [row, col - 1], // Left
+      [row, col + 1], // Right
+      [row + 1, col - 1], // Bottom-left
+      [row + 1, col], // Bottom
+      [row + 1, col + 1], // Bottom-right
+    ];
+    return neighbors;
+  }
+
+  movePlayersTowardTarget() {
+    this.playerCells.forEach((playerCell: [number, number], index) => {
+      const row = playerCell[0];
+      const col = playerCell[1];
+      const currentValue = this.gameGrid[row][col];
+
+      const gameGrid = this.gameGrid;
+      const gridRows = gameGrid[0].length;
+      const gridCols = gameGrid.length;
+
+    
+    });
     return this.playerCells;
   }
 }

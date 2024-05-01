@@ -16,6 +16,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Rating/Rating.jsx", "src/components/Rating/index.jsx"],
   "exclude": ["node_modules"]
 }

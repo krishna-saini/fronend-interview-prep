@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './UI.module.css';
 import PlayerPostionProcessor from './PlayerPostionProcessor';
 import GridGameEngine from '@/core/grid-game';
@@ -7,12 +7,24 @@ import { getCellStyling } from '@/core/utils/grid-game';
 interface GameGridProps {
   rows: number;
   columns: number;
-  gameEngine: GridGameEngine | null;
+  numPlayers: number;
 }
-const UI: React.FC<GameGridProps> = ({ rows, columns, gameEngine }) => {
-  // const gameGrid = gameEngine?.gameGrid;
-  const targetCell = gameEngine?.targetCell || [0, 0]; // TODO: make it better
-  const playerCells = gameEngine?.playerCells || [[0, 0]];
+const UI: React.FC<GameGridProps> = ({ rows, columns, numPlayers }) => {
+  console.log('krishna in UIT stat');
+  const gameEngine = new GridGameEngine({ rows, columns, numPlayers });
+  const [playerCells, setPlayerCells] = useState<[number, number][]>(
+    gameEngine.playerCells
+  );
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newPlayerCells = gameEngine.movePlayersTowardTarget();
+      setPlayerCells(newPlayerCells); // Trigger re-render
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const targetCell = gameEngine.targetCell;
 
   const gridRows = [];
 

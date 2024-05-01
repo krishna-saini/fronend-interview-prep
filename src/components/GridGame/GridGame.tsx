@@ -6,8 +6,8 @@ import GridGameEngine from '@/core/grid-game';
 import UI from './UI';
 
 export interface userInputType {
-  row: number;
-  column: number;
+  rows: number;
+  columns: number;
   numPlayers: number;
 }
 
@@ -15,11 +15,10 @@ const GridGame = () => {
   const [showGameRules, setShowGameRules] = useState(true);
   const [showInputForm, setShowInputForm] = useState(false);
   const [userInput, setUserInput] = useState<userInputType>({
-    row: 0,
-    column: 0,
+    rows: 0,
+    columns: 0,
     numPlayers: 0,
   });
-  const [gameEngine, setGameEngine] = useState<GridGameEngine | null>(null);
   const [gameInitialized, setGameInitialized] = useState<boolean>(false);
 
   const handleStartGame = () => {
@@ -30,10 +29,6 @@ const GridGame = () => {
   const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setShowInputForm(false);
-    const newGameEngine = new GridGameEngine(userInput);
-    console.log('krishna newgridgame', newGameEngine);
-
-    setGameEngine(newGameEngine);
     setGameInitialized(true);
   };
 
@@ -56,12 +51,12 @@ const GridGame = () => {
               <label>Number of Rows:</label>
               <input
                 type='number'
-                value={userInput.row}
+                value={userInput.rows}
                 onChange={(e) =>
                   setUserInput((prev: userInputType) => {
                     return {
                       ...prev,
-                      row: parseInt(e.target.value),
+                      rows: parseInt(e.target.value),
                     };
                   })
                 }
@@ -71,12 +66,12 @@ const GridGame = () => {
               <label>Number of Columns:</label>
               <input
                 type='number'
-                value={userInput.column}
+                value={userInput.columns}
                 onChange={(e) =>
                   setUserInput((prev: userInputType) => {
                     return {
                       ...prev,
-                      column: parseInt(e.target.value),
+                      columns: parseInt(e.target.value),
                     };
                   })
                 }
@@ -101,7 +96,13 @@ const GridGame = () => {
           </form>
         </div>
       )}
-      {gameInitialized && <UI rows={userInput.row} columns={userInput.column} gameEngine={gameEngine} />}
+      {gameInitialized && (
+        <UI
+          rows={userInput.rows}
+          columns={userInput.columns}
+          numPlayers={userInput.numPlayers}
+        />
+      )}
     </div>
   );
 };
