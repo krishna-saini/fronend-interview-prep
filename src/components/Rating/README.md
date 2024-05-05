@@ -1,12 +1,10 @@
 ## Requirements
 
 1. Create a star rating system has 5 stars.
-2. default select stars are 4;
-3. user should be able to select any number of stars
-4. while hovering over starts, all proceeding starts focussed too.
-5. clicking on a star should select all starts till that star.
-6. do we want user to change the rating once clicked ?
-7. make it accessible via keyboard
+2. while hovering over stars, all proceeding starts focussed too.
+4. clicking on a star should select all starts till that star.
+5. do we want user to change the rating once clicked ?
+6. make it accessible via keyboard
 
 ## divide the task
 
@@ -28,7 +26,8 @@
 1. use fieldset for grouping of some html tags in a form
 2. ~ selects all siblings, + selects next sibling
 3. The data-\* attribute in HTML is a custom attribute that allows developers to store custom data directly within HTML elements. It serves as a prefix for custom attributes, indicating that the attribute is intended to store data rather than define a standard HTML attribute
-4. How to access values from data-\*
+4. use `mouseEnter` event for mouse movement
+5. How to access values from data-\*
    <span class="star" data-value="1">&#9733;</span>
    document.querySelector('span').dataset.value
    or
