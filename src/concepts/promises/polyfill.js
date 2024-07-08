@@ -56,7 +56,60 @@ if (!window.Promise) {
         reject(error);
       }
     }
+    /**
+     * The then() method of Promise instances takes up to two arguments:
+     * callback functions for the fulfilled and rejected cases of the Promise.
+     *
+     * It immediately returns another Promise object, allowing you to
+     * chain calls to other promise methods.
+     *
+     * then(onFulfilled, onRejected)
+     * onFulfilled - A function to asynchronously execute when this promise becomes fulfilled
+     *
+     * onRejected(optional) - A function to asynchronously execute when this promise becomes rejected
+     */
+    then(successCallback, rejectedCallback) {
+      return new CustomPromise((resolve, reject) => {
+        if (this.#state === 'fulfilled') {
+          try {
+            const result = successCallback(this.#value);
+            // When callbacks return promises, you should chain them
+            if (result instanceof CustomPromise) {
+              result.then(resolve, reject);
+            } else {
+              resolve(result);
+            }
+          } catch (error) {
+            reject(error);
+          }
+        } else if (this.#state === 'rejected') {
+          try {
+            const result = rejectedCallback(this.#value);
+            if (result instanceof CustomPromise) {
+              result.then(resolve, reject);
+            } else {
+              resolve(result);
+            }
+          } catch (error) {
+            reject(error);
+          }
+        }
+      });
+    }
+
+    /**
+     * The catch() method of Promise instances schedules a function to be called
+     * when the promise is rejected. It immediately returns another Promise object,
+     * allowing you to chain calls to other promise methods
+     *
+     * . It is a shortcut for Promise.prototype.then(undefined, onRejected).
+     */
+    catch(rejectedCallback) {
+      return this.then(null, rejectedCallback);
+    }
   }
 }
 
-const executor = setTimeout(() => console.log('logging after 5s'), 5000);
+const executor = (resolve) =>
+  setTimeout(() => resolve('logging after 1s'), 1000);
+console.log(new CustomPromise(executor));
