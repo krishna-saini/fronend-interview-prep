@@ -36,7 +36,10 @@ const myPormiseAll = (promisesArr) => {
   // it return a promise
   return new Promise((resolve, reject) => {
     promisesArr.forEach((inputPromise, index) => {
-      //if promise passes
+     /**
+     make input Promises a promise via .resolve
+     if the input is already a promise, the Promise.resolve does nothing. If it is not a promise, it will make it a promise,
+     */
       Promise.resolve(inputPromise)
         .then((resolvedValue) => {
           result[index] = resolvedValue;
