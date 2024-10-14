@@ -20,13 +20,13 @@
   color: orange;
 }
 
-.container2 span:focus {
+/* .container2 span:focus {
   color: orange;
 }
 
 .container2 span:focus ~ span {
-  color: orange;
-}
+  color: orange; 
+}*/
 
 .container2 span[data-clicked='true'] {
   color: orange;

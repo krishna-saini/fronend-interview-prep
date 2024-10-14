@@ -12,4 +12,11 @@ document.querySelectorAll('.star').forEach((starElement) => {
   });
 });
 
-console.log('krishna ', 'hello', document.getElementsByTagName('span'));
+document.querySelector('.container3').addEventListener('click', (e) => {
+  console.log('krishna', e, e.target);
+  if(e.target.tagName ==='span'){
+    
+  }
+});
+
+console.log('krishna ', 'hello');
