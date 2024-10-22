@@ -13,7 +13,7 @@ const slowFunction = (...args) =>
   
   const memoize = (fn) => {
     const cache = {};
-    const innerFn = (...args) => {
+    function innerFn(...args) { // dont use arrow function for decorators
       // check if args are same
       // how to check last args and current args
       // somehow we have to store last args somewhere
@@ -31,7 +31,7 @@ const slowFunction = (...args) =>
       console.log('returning from acutal calculation');
   
       // else execute the fn and store the result in cache and return cache
-      cache[cacheKey] = fn(...args);
+      cache[cacheKey] = fn.call(this, ...args);
       return cache[cacheKey];
     };
   
@@ -43,3 +43,9 @@ const slowFunction = (...args) =>
   console.log('hello memo2', memoizedFunction(1, 3));
   console.log('hello memo1 again', memoizedFunction(1, 2));
   
+
+  /**
+   * Learnings -
+   * use function defination when creating decorators as we have to keep 
+   * using proper value of this
+   */
